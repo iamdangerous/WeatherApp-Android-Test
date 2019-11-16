@@ -3,9 +3,12 @@ package com.rahullohra.myweatherapp
 import android.app.Application
 import androidx.multidex.MultiDexApplication
 import com.facebook.stetho.Stetho
-//import com.rahullohra.fakecore.CoreDependency
+import com.rahullohra.myweatherapp.data.di.components.AppComponent
+import com.rahullohra.myweatherapp.data.di.components.DaggerAppComponent
+import com.rahullohra.myweatherapp.data.di.modules.AppModule
 
 class WeatherApp : MultiDexApplication() {
+    lateinit var appComponent:AppComponent
     companion object {
         lateinit var INSTANCE: Application
     }
@@ -13,16 +16,15 @@ class WeatherApp : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
-        Stetho.initializeWithDefaults(this);
-        setFakeData()
+        Stetho.initializeWithDefaults(this)
+        injectComponents()
     }
 
-    private fun setFakeData(){
-//        val fakeDependency = CoreDependency
-//        fakeDependency.setupClient()
-//
-//        val f = fun(s: String): Boolean {
-//            return false
-//        }
+    private fun injectComponents(){
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
+        appComponent.inject(this)
     }
+
 }

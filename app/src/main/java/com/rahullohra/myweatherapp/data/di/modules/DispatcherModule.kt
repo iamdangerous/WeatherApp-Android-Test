@@ -1,5 +1,6 @@
 package com.rahullohra.myweatherapp.data.di.modules
 
+import com.rahullohra.myweatherapp.data.di.scopes.ActivityScope
 import com.rahullohra.myweatherapp.data.di.scopes.AppScope
 import dagger.Module
 import dagger.Provides
@@ -8,16 +9,15 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Named
 
 @Module
-@AppScope
 class DispatcherModule {
 
     @Provides
-    @AppScope
+    @ActivityScope
     @Named(WORKER)
     fun provideWorkerDispatcher():CoroutineDispatcher = Dispatchers.IO
 
     @Provides
-    @AppScope
+    @ActivityScope
     @Named(UI)
     fun provideMainDispatcher():CoroutineDispatcher = Dispatchers.Main
 

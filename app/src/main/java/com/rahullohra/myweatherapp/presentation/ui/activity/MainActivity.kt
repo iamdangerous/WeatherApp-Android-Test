@@ -21,10 +21,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 //import com.rahullohra.myweatherapp.IdlingResourceProvider
 import com.rahullohra.myweatherapp.R
+import com.rahullohra.myweatherapp.WeatherApp
 //import com.rahullohra.myweatherapp.WeatherIdlingResource
 import com.rahullohra.myweatherapp.data.LiveDataResult
+import com.rahullohra.myweatherapp.data.di.components.ActivityComponent
 import com.rahullohra.myweatherapp.data.di.components.DaggerActivityComponent
+//import com.rahullohra.myweatherapp.data.di.components.DaggerActivityComponent
 import com.rahullohra.myweatherapp.data.di.modules.AppModule
+import com.rahullohra.myweatherapp.data.di.modules.ViewModelModule
 import com.rahullohra.myweatherapp.data.model.CurrentWeatherData
 import com.rahullohra.myweatherapp.data.model.WeatherData
 import com.rahullohra.myweatherapp.extras.Util
@@ -83,9 +87,14 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
     }
 
     private fun injectComponent() {
+        val appComponent = (applicationContext as WeatherApp).appComponent
+
         DaggerActivityComponent.builder()
-            .appModule(AppModule(this))
-            .build().inject(this)
+            .appComponent(appComponent)
+            .build()
+            .inject(this)
+//            .appModule(AppModule(this))
+//            .build().inject(this)
     }
 
     private fun setListeners() {
@@ -143,7 +152,7 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
                     Toast.makeText(this, "Cannot find location", Toast.LENGTH_LONG).show()
                 }
             }
-            .addOnFailureListener { ex ->
+            .addOnFailureListener { _ ->
                 onFail()
                 uiState.frameworkLocationState = FrameworkLocationState.LOCATION_NOT_FOUND
                 Toast.makeText(this, "Cannot find location", Toast.LENGTH_LONG).show()

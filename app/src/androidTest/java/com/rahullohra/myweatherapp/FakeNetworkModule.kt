@@ -2,18 +2,16 @@ package com.rahullohra.myweatherapp
 
 import android.content.Context
 import com.rahullohra.myweatherapp.data.di.modules.NetworkModule
-import com.rahullohra.myweatherapp.data.di.scopes.AppScope
 import com.rahullohra.myweatherapp.extras.NoInternetException
-import dagger.Provides
+import dagger.Module
 import okhttp3.OkHttpClient
 
+@Module
 class FakeNetworkModule : NetworkModule() {
 
-    @Provides
-    @AppScope
-    override fun createOkHttpClient(context: Context): OkHttpClient {
+    override fun getClient(context: Context): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor { t ->
+            .addInterceptor { _ ->
                 throw NoInternetException()
             }
             .build()

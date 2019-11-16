@@ -4,8 +4,8 @@ import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.GsonBuilder
 import com.rahullohra.myweatherapp.data.di.scopes.AppScope
-import com.rahullohra.myweatherapp.extras.ApiEndpoints
 import com.rahullohra.myweatherapp.data.webservice.ApiService
+import com.rahullohra.myweatherapp.extras.ApiEndpoints
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -14,13 +14,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-@AppScope
 @Module
 open class NetworkModule {
 
-    @Provides
-    @AppScope
-    open fun createOkHttpClient(context: Context): OkHttpClient {
+    open fun getClient(context: Context): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor { t ->
                 val original = t.request()
@@ -32,6 +29,12 @@ open class NetworkModule {
             .readTimeout(60L, TimeUnit.SECONDS)
             .addNetworkInterceptor(StethoInterceptor())
             .build()
+    }
+
+    @Provides
+    @AppScope
+    fun createOkHttpClient(context: Context): OkHttpClient {
+        return getClient(context)
     }
 
 

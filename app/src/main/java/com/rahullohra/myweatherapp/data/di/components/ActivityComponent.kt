@@ -1,18 +1,15 @@
 package com.rahullohra.myweatherapp.data.di.components
 
-import com.rahullohra.myweatherapp.data.di.modules.*
-import com.rahullohra.myweatherapp.data.di.scopes.AppScope
+import com.rahullohra.myweatherapp.data.di.modules.DispatcherModule
+import com.rahullohra.myweatherapp.data.di.modules.ViewModelModule
+import com.rahullohra.myweatherapp.data.di.scopes.ActivityScope
 import com.rahullohra.myweatherapp.presentation.ui.activity.MainActivity
 import dagger.Component
 
-@AppScope
+@ActivityScope
 @Component(
-    modules = [NetworkModule::class,
-        AppModule::class,
-        ViewModelModule::class,
-        DispatcherModule::class,
-        LocationModule::class
-    ]
+    dependencies = [AppComponent::class],
+    modules = [ViewModelModule::class, DispatcherModule::class]
 )
 interface ActivityComponent {
 

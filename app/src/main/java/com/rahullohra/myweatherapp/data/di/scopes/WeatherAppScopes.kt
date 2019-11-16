@@ -7,3 +7,8 @@ import javax.inject.Scope
 @Scope
 @Retention
 annotation class AppScope
+
+@MustBeDocumented
+@Scope
+@Retention
+annotation class ActivityScope
