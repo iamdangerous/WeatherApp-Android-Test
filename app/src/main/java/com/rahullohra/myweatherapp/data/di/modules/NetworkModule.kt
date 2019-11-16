@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 @Module
-open class NetworkModule {
+class NetworkModule {
 
     open fun getClient(context: Context): OkHttpClient {
         return OkHttpClient.Builder()
