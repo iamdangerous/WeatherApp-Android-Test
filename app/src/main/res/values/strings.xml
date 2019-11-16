@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MyWeatherApp</string>
+    <string name="something_went_wrong">Something went wrong at our end!</string>
+    <string name="retry">Retry</string>
+
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+
+    <string name="degree_text">{0}\u00B0</string>
+    <string name="cent_text">{0} C</string>
+    <string name="title_weatherdetail">Weather Detail</string>
+    <string name="title_fakecore">FakeCore</string>
+</resources>
