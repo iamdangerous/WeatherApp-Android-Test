@@ -32,6 +32,8 @@ import com.rahullohra.myweatherapp.data.di.modules.ViewModelModule
 import com.rahullohra.myweatherapp.data.model.CurrentWeatherData
 import com.rahullohra.myweatherapp.data.model.WeatherData
 import com.rahullohra.myweatherapp.extras.Util
+import com.rahullohra.myweatherapp.idlingResources.IdlingResourceProvider
+import com.rahullohra.myweatherapp.idlingResources.WeatherIdlingResource
 import com.rahullohra.myweatherapp.presentation.adapter.WeatherAdapter
 import com.rahullohra.myweatherapp.presentation.contract.MainActivityContract
 import com.rahullohra.myweatherapp.presentation.ui.views.ErrorView
@@ -41,7 +43,7 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorViewCallback {
 
-    private val TAG = "MainActivity"
+    val TAG = "MainActivity"
     val PERMISSION_REQUEST_CODE = 1
 
     @Inject
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
     private var screenHeight: Float = 0f
     var place = ""
 
-//    var idlingResource: WeatherIdlingResource? = null
+    var idlingResource: WeatherIdlingResource? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var locationCallback: LocationCallback? = null
     var uiState = MainActivityState(
@@ -79,8 +81,8 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
         toggleProgressBar(true)
         screenHeight = Util.deviceDimensions(applicationContext).y.toFloat()
 
-//        idlingResource = IdlingResourceProvider.provideIdlingResource(TAG)
-//        idlingResource?.increment()
+        idlingResource = IdlingResourceProvider.provideIdlingResource(TAG)
+        idlingResource?.increment()
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         error_view.callback = this
@@ -93,8 +95,6 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
             .appComponent(appComponent)
             .build()
             .inject(this)
-//            .appModule(AppModule(this))
-//            .build().inject(this)
     }
 
     private fun setListeners() {
@@ -220,7 +220,7 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
         toggleProgressBar(false)
         error_view.visibility = View.VISIBLE
 
-//        idlingResource?.decrement()
+        idlingResource?.decrement()
     }
 
     override fun showResult(pair: Pair<CurrentWeatherData, List<WeatherData>>) {
@@ -233,7 +233,7 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
         translateUp()
         updateWeather(pair.first)
 
-//        idlingResource?.decrement()
+        idlingResource?.decrement()
     }
 
     override fun toggleProgressBar(value: Boolean) {
