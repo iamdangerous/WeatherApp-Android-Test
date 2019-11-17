@@ -1,13 +1,18 @@
 package com.rahullohra.myweatherapp.presentation.ui.activity
 
+//import com.rahullohra.myweatherapp.IdlingResourceProvider
+//import com.rahullohra.myweatherapp.WeatherIdlingResource
+//import com.rahullohra.myweatherapp.data.di.components.DaggerActivityComponent
 import android.Manifest
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Looper
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
@@ -19,21 +24,16 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
-//import com.rahullohra.myweatherapp.IdlingResourceProvider
 import com.rahullohra.myweatherapp.R
 import com.rahullohra.myweatherapp.WeatherApp
-//import com.rahullohra.myweatherapp.WeatherIdlingResource
 import com.rahullohra.myweatherapp.data.LiveDataResult
-import com.rahullohra.myweatherapp.data.di.components.ActivityComponent
 import com.rahullohra.myweatherapp.data.di.components.DaggerActivityComponent
-//import com.rahullohra.myweatherapp.data.di.components.DaggerActivityComponent
-import com.rahullohra.myweatherapp.data.di.modules.AppModule
-import com.rahullohra.myweatherapp.data.di.modules.ViewModelModule
 import com.rahullohra.myweatherapp.data.model.CurrentWeatherData
 import com.rahullohra.myweatherapp.data.model.WeatherData
 import com.rahullohra.myweatherapp.extras.Util
 import com.rahullohra.myweatherapp.idlingResources.IdlingResourceProvider
 import com.rahullohra.myweatherapp.idlingResources.WeatherIdlingResource
+import com.rahullohra.myweatherapp.leaks.LongRunningAsyncTask
 import com.rahullohra.myweatherapp.presentation.adapter.WeatherAdapter
 import com.rahullohra.myweatherapp.presentation.contract.MainActivityContract
 import com.rahullohra.myweatherapp.presentation.ui.views.ErrorView
@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
         injectComponent()
         setListeners()
         requestLocation()
+        runAsyncTask()
     }
 
     private fun initUi() {
@@ -193,6 +194,11 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
         )
     }
 
+    fun runAsyncTask() {
+        val asyncTask = LongRunningAsyncTask()
+        asyncTask.execute()
+    }
+
     private fun getLatestAddress(location: Location) {
         weatherViewModel.getLocation(location.latitude, location.longitude)
     }
@@ -301,9 +307,9 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        when(requestCode){
-            PERMISSION_REQUEST_CODE->{
-                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        when (requestCode) {
+            PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //permission granted
                     requestLocation()
                 }
