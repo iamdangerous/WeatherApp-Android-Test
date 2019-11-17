@@ -1,7 +1,21 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-allopen'
+
+allOpen {
+    annotation("com.rahullohra.myweatherapp.annotations.OpenClass")
+}
 
 android {
     compileSdkVersion 29

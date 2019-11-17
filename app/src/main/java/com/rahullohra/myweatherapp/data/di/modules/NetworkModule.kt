@@ -3,6 +3,7 @@ package com.rahullohra.myweatherapp.data.di.modules
 import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.GsonBuilder
+import com.rahullohra.myweatherapp.annotations.DebugClass
 import com.rahullohra.myweatherapp.data.di.scopes.AppScope
 import com.rahullohra.myweatherapp.data.webservice.ApiService
 import com.rahullohra.myweatherapp.extras.ApiEndpoints
@@ -14,10 +15,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
+@DebugClass
 @Module
 class NetworkModule {
 
-    open fun getClient(context: Context): OkHttpClient {
+    fun getClient(context: Context): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor { t ->
                 val original = t.request()
@@ -46,9 +48,7 @@ class NetworkModule {
     }
 
 
-    @Provides
-    @AppScope
-    inline fun <reified T> createWebService(okHttpClient: OkHttpClient, url: String): T {
+    fun <T> createWebService(okHttpClient: OkHttpClient, url: String, clazz: Class<T>): T {
         val gson = GsonBuilder()
             .create()
 
@@ -56,12 +56,12 @@ class NetworkModule {
             .baseUrl(url)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson)).build()
-        return retrofit.create(T::class.java)
+        return retrofit.create(clazz)
     }
 
     @Provides
     @AppScope
     fun provideApiService(okHttpClient: OkHttpClient): ApiService {
-        return createWebService(okHttpClient, ApiEndpoints.BASE_URL)
+        return createWebService(okHttpClient, ApiEndpoints.BASE_URL, ApiService::class.java)
     }
 }
