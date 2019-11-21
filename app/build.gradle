@@ -108,4 +108,7 @@ dependencies {
 
     kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_compiler_version"
 
+    //rx
+    implementation "io.reactivex.rxjava3:rxjava:3.0.0-RC5"
+
 }

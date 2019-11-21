@@ -12,7 +12,7 @@ import com.rahullohra.myweatherapp.data.di.modules.AppModule
 import com.rahullohra.myweatherapp.di.components.DaggerTestComponent
 import com.rahullohra.myweatherapp.domain.usecase.GetWeatherUseCase
 import com.rahullohra.myweatherapp.domain.usecase.LocationUseCase
-import com.rahullohra.myweatherapp.idlingResources.IdlingResourceProvider
+import com.rahullohra.myweatherapp.idlingResources.IdlingProvider
 import com.rahullohra.myweatherapp.idlingResources.WeatherIdlingResource
 import com.rahullohra.myweatherapp.presentation.ui.activity.MainActivity
 import io.mockk.MockKAnnotations
@@ -48,12 +48,12 @@ class WeatherAppUiTest {
     @Before
     fun initDependencies() {
         MockKAnnotations.init(this)
-        idlingResource = IdlingResourceProvider.provideIdlingResource("MainActivity")
+        idlingResource = IdlingProvider.provideIdlingResource("MainActivity")
         IdlingRegistry.getInstance().register(idlingResource)
     }
 
 
-    @Test
+//    @Test
     fun onSuccessVisibility() {
         activityRule.launchActivity(null)
 
@@ -75,6 +75,7 @@ class WeatherAppUiTest {
         (context as WeatherApp).appComponent = testComponent
         testComponent.inject(this)
 
+        locationUseCase.hello()
         coEvery { locationUseCase.processAddress(any(), any()) } throws Exception()
 
         //when

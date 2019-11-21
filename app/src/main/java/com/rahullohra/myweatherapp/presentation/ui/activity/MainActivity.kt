@@ -1,8 +1,5 @@
 package com.rahullohra.myweatherapp.presentation.ui.activity
 
-//import com.rahullohra.myweatherapp.IdlingResourceProvider
-//import com.rahullohra.myweatherapp.WeatherIdlingResource
-//import com.rahullohra.myweatherapp.data.di.components.DaggerActivityComponent
 import android.Manifest
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
@@ -31,9 +28,8 @@ import com.rahullohra.myweatherapp.data.di.components.DaggerActivityComponent
 import com.rahullohra.myweatherapp.data.model.CurrentWeatherData
 import com.rahullohra.myweatherapp.data.model.WeatherData
 import com.rahullohra.myweatherapp.extras.Util
-import com.rahullohra.myweatherapp.idlingResources.IdlingResourceProvider
+import com.rahullohra.myweatherapp.idlingResources.IdlingProvider
 import com.rahullohra.myweatherapp.idlingResources.WeatherIdlingResource
-import com.rahullohra.myweatherapp.leaks.LongRunningAsyncTask
 import com.rahullohra.myweatherapp.presentation.adapter.WeatherAdapter
 import com.rahullohra.myweatherapp.presentation.contract.MainActivityContract
 import com.rahullohra.myweatherapp.presentation.ui.views.ErrorView
@@ -70,11 +66,9 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
         injectComponent()
         setListeners()
         requestLocation()
-        runAsyncTask()
     }
 
     private fun initUi() {
-
         rv.layoutManager = LinearLayoutManager(this)
         adapter = WeatherAdapter(list)
         rv.adapter = adapter
@@ -82,7 +76,7 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
         toggleProgressBar(true)
         screenHeight = Util.deviceDimensions(applicationContext).y.toFloat()
 
-        idlingResource = IdlingResourceProvider.provideIdlingResource(TAG)
+        idlingResource = IdlingProvider.provideIdlingResource(TAG)
         idlingResource?.increment()
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -192,11 +186,6 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
             locationCallback,
             Looper.getMainLooper()
         )
-    }
-
-    fun runAsyncTask() {
-        val asyncTask = LongRunningAsyncTask()
-        asyncTask.execute()
     }
 
     private fun getLatestAddress(location: Location) {

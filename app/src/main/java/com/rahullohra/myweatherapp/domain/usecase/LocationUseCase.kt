@@ -1,6 +1,7 @@
 package com.rahullohra.myweatherapp.domain.usecase
 
 import android.location.Geocoder
+import androidx.annotation.VisibleForTesting
 import javax.inject.Inject
 
 class LocationUseCase @Inject constructor(val geoCoder: Geocoder) {
@@ -13,6 +14,10 @@ class LocationUseCase @Inject constructor(val geoCoder: Geocoder) {
             return DEFAULT_LOCATION
     }
 
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun hello():String{
+        return "Hello"
+    }
 
     companion object {
         const val DEFAULT_LOCATION = "PARIS"

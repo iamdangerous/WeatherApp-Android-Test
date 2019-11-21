@@ -42,6 +42,8 @@ class WeatherViewModel @Inject constructor(
             val response = weatherUseCae.getWeather(deviceLocation.name)
             weatherLiveData.postValue(LiveDataResult.success(response))
         }
+
+        locationUseCase.hello()
     }
 
     fun getLocation(latitude: Double, longitude: Double) {

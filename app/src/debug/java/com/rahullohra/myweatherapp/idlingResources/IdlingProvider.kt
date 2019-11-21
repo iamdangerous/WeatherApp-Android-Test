@@ -1,6 +1,7 @@
 package com.rahullohra.myweatherapp.idlingResources
 
-object IdlingResourceProvider {
+
+object IdlingProvider {
 
     var resource: WeatherIdlingResource? = null
     fun provideIdlingResource(name: String): WeatherIdlingResource? {
