@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "713762390855",
+    "firebase_url": "https://myweatherapp-b3d62.firebaseio.com",
+    "project_id": "myweatherapp-b3d62",
+    "storage_bucket": "myweatherapp-b3d62.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713762390855:android:db083c1a65e4b370fe4262",
+        "android_client_info": {
+          "package_name": "com.rahullohra.myweatherapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713762390855-9mn2hbcepn0mpvn9rgbtnqgo3dvvvhf8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rahullohra.myweatherapp",
+            "certificate_hash": "8647efcaff3c05e61f2f4d4cf2f33c3e02ea3829"
+          }
+        },
+        {
+          "client_id": "713762390855-gie2m3e87qjbc5ss5qja4mqma9u01ilm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATPmJ-5f-u-txe5akQJWg3MM7PeaAxqv0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713762390855-gie2m3e87qjbc5ss5qja4mqma9u01ilm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
