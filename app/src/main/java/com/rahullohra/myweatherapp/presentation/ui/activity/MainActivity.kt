@@ -131,6 +131,10 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
 
     @SuppressLint("MissingPermission")
     private fun setLocationListener() {
+        if(true){
+            weatherViewModel.getLocation(19.0760, 72.8777)
+            return
+        }
         fusedLocationClient.lastLocation
             .addOnSuccessListener {
                 if (TextUtils.isEmpty(place)) {
