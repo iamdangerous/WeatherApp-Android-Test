@@ -1,80 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:id="@+id/fm"
-             android:layout_height="match_parent"
-             tools:context=".presentation.ui.activity.MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/containerBg"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        app:title=""
+        android:layout_height="48dp" />
+
+    <FrameLayout
+        android:id="@+id/fm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.activity.MainActivity">
+
+        <LinearLayout
             android:id="@+id/ll_container"
-            android:background="@color/containerBg"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-                android:textColor="@color/black"
-                android:fontFamily="sans-serif-black"
-                android:layout_marginTop="56dp"
+            <TextView
                 android:id="@+id/tv_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="20!"
-                android:textSize="@dimen/temp_f"
                 android:layout_gravity="center_horizontal"
-                />
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-black"
+                android:text="20!"
+                android:textColor="@color/black"
+                android:textSize="@dimen/temp_f" />
 
 
-        <TextView
-                android:textColor="@color/violet_1"
-                android:fontFamily="sans-serif-thin"
-                android:layout_marginTop="56dp"
+            <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Delhi"
-                android:textSize="@dimen/title_f"
                 android:layout_gravity="center_horizontal"
-                />
+                android:layout_marginTop="56dp"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="@color/violet_1"
+                android:textSize="@dimen/title_f"
+                tools:text="Delhi" />
 
-        <View
+            <View
                 android:id="@+id/view_shadow"
-                android:layout_marginTop="62dp"
-                android:background="@drawable/shadow"
                 android:layout_width="match_parent"
-                android:layout_height="8dp"/>
+                android:layout_height="8dp"
+                android:layout_marginTop="62dp"
+                android:background="@drawable/shadow" />
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:background="@color/white"
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv"
-                android:paddingTop="@dimen/padding"
-                android:paddingLeft="@dimen/padding"
-                android:paddingStart="@dimen/padding"
-                android:paddingRight="@dimen/padding"
-                android:paddingEnd="@dimen/padding"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                />
+                android:background="@color/white"
+                android:paddingStart="@dimen/padding"
+                android:paddingLeft="@dimen/padding"
+                android:paddingTop="@dimen/padding"
+                android:paddingEnd="@dimen/padding"
+                android:paddingRight="@dimen/padding" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-
-    <androidx.appcompat.widget.AppCompatImageView
-            android:scaleType="center"
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/loading_image"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteY="258dp"
-            tools:layout_editor_absoluteX="154dp"/>
+            android:layout_gravity="center"
+            android:scaleType="center"
+            app:srcCompat="@drawable/ic_loading"
+            tools:layout_editor_absoluteX="154dp"
+            tools:layout_editor_absoluteY="258dp" />
 
-    <com.rahullohra.myweatherapp.presentation.ui.views.ErrorView
+        <com.rahullohra.myweatherapp.presentation.ui.views.ErrorView
             android:id="@+id/error_view"
-            tools:visibility="invisible"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            tools:visibility="invisible" />
 
-</FrameLayout>
+    </FrameLayout>
+</LinearLayout>
+

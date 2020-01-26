@@ -3,6 +3,7 @@ package com.rahullohra.myweatherapp.data.di.modules
 import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.GsonBuilder
+import com.rahullohra.fakeresponse.data.interceptor.RestInterceptor
 import com.rahullohra.myweatherapp.annotations.DebugClass
 import com.rahullohra.myweatherapp.data.di.scopes.AppScope
 import com.rahullohra.myweatherapp.data.webservice.ApiService
@@ -26,10 +27,11 @@ class NetworkModule {
                 val requestBuilder = original.newBuilder().header("Authorization", "Bearer " + "")
                 t.proceed(requestBuilder.build())
             }
-            .cache(provideCache(context))
+//            .cache(provideCache(context))
             .connectTimeout(60L, TimeUnit.SECONDS)
             .readTimeout(60L, TimeUnit.SECONDS)
             .addNetworkInterceptor(StethoInterceptor())
+            .addNetworkInterceptor(RestInterceptor(context))
             .build()
     }
 

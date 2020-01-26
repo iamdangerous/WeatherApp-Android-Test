@@ -5,11 +5,11 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.location.Location
-import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Looper
 import android.text.TextUtils
-import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.LinearInterpolator
@@ -28,6 +28,7 @@ import com.rahullohra.myweatherapp.data.di.components.DaggerActivityComponent
 import com.rahullohra.myweatherapp.data.model.CurrentWeatherData
 import com.rahullohra.myweatherapp.data.model.WeatherData
 import com.rahullohra.myweatherapp.extras.Util
+import com.rahullohra.myweatherapp.fakeresponse.FakeResponseActivityProvider
 import com.rahullohra.myweatherapp.idlingResources.IdlingProvider
 import com.rahullohra.myweatherapp.idlingResources.WeatherIdlingResource
 import com.rahullohra.myweatherapp.presentation.adapter.WeatherAdapter
@@ -81,6 +82,9 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         error_view.callback = this
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = ""
     }
 
     private fun injectComponent() {
@@ -131,7 +135,7 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
 
     @SuppressLint("MissingPermission")
     private fun setLocationListener() {
-        if(true){
+        if (true) {
             weatherViewModel.getLocation(19.0760, 72.8777)
             return
         }
@@ -308,6 +312,20 @@ class MainActivity : AppCompatActivity(), MainActivityContract, ErrorView.ErrorV
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_fake_response -> {
+                FakeResponseActivityProvider().startActivity(this)
+            }
+        }
+        return true
     }
 }
 
