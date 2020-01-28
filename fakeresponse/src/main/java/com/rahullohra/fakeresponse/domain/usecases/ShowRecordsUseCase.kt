@@ -22,5 +22,6 @@ class ShowRecordsUseCase constructor(val repository: LocalRepository, val restRe
 
     suspend fun deleteAllRecords() {
         repository.deleteAllRecords()
+        restRepository.deleteAllRecords()
     }
 }

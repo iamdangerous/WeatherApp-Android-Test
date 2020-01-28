@@ -29,6 +29,7 @@ class FakeResponseVM constructor(
     fun deleteAllGqlRecords() {
         launch {
             try{
+
                 usecase.deleteAllRecords()
                 clearSqlRecords.postValue(Success(true))
             }catch (ex:Exception){
